@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: lint.html
-          path: app/build/reports/lint-results-debug.html
+          path: /home/runner/work/it_one/it_one/Kapital/app/build/reports/lint-results-debug.html
 
   unit-test:
     needs: [lint]
@@ -52,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: unit_test_report
-          path: app/build/reports/tests/testDebugUnitTest/
+          path: /home/runner/work/it_one/it_one/Kapital/app/build/reports/tests/testDebugUnitTest/
 
   instrumentation-test:
     needs: [unit-test]
@@ -74,7 +74,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: instrumentation_test_report
-          path: app/build/reports/androidTests/connected/
+          path: /home/runner/work/it_one/it_one/Kapital/app/build/reports/androidTests/connected/
 
   static-code-analysis:
     needs: [instrumentation-test]
@@ -119,4 +119,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: expense-manager.apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: /home/runner/work/it_one/it_one/Kapital/app/build/outputs/apk/debug/app-debug.apk
