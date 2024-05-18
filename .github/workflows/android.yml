@@ -9,6 +9,9 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Kapital
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
@@ -22,6 +25,9 @@ jobs:
   unit-test:
     needs: [lint]
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Kapital
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
@@ -38,6 +44,9 @@ jobs:
   instrumentation-test:
     needs: [unit-test]
     runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: Kapital
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
@@ -57,6 +66,9 @@ jobs:
   static-code-analysis:
     needs: [instrumentation-test]
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Kapital
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
@@ -75,6 +87,9 @@ jobs:
     needs: [static-code-analysis]
     name: Generate APK
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Kapital
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
