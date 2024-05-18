@@ -17,6 +17,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17.x'
+        distribution: 'adopt'
+        cache: gradle
     - name: Linting
       run: ./gradlew lintDebug
       
@@ -25,13 +31,6 @@ jobs:
       with:
         name: index.html
         path: app/build/reports/lint-results-debug.html
-        
-    - name: set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17.x'
-        distribution: 'adopt'
-        cache: gradle
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
