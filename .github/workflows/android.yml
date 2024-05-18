@@ -15,6 +15,14 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
+        
+      - name: set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17.x'
+          
+      - name: Linting
+        run: ./gradlew lintDebug
 
       - name: Upload html test report
         uses: actions/upload-artifact@v2
