@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "639444637035",
+    "project_id": "kapital-82127",
+    "storage_bucket": "kapital-82127.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639444637035:android:234ae2fb852153d250a82e",
+        "android_client_info": {
+          "package_name": "com.example.kapital"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUGSbeYABeqUikUpZt3ndYtc0eBwpPVIg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

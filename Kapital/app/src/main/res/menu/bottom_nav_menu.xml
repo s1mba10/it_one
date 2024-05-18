@@ -1,0 +1,24 @@
+<!-- bottom_nav_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/analysis"
+        android:icon="@drawable/baseline_analytics_24"
+        android:iconTint="@color/white"
+        android:title="Аналитика" />
+    <item
+        android:id="@+id/history"
+        android:icon="@drawable/baseline_history_24"
+        android:iconTint="@color/white"
+        android:title="История" />
+    <item
+        android:id="@+id/goals"
+        android:icon="@drawable/baseline_add_task_24"
+        android:iconTint="@color/white"
+        android:title="Цели" />
+    <item
+        android:id="@+id/add"
+        android:icon="@drawable/add"
+        android:iconTint="@color/white"
+        android:title="Добавить" />
+
+</menu>
