@@ -39,6 +39,10 @@ public class MainPage extends Fragment {
                 selectedFragment = new AnalyticsFragment();
             } else if (item.getItemId() == R.id.add) {
                 selectedFragment = new CreateOperationFragment();
+            } else if (item.getItemId() == R.id.history) {
+                selectedFragment = new HistoryFragment();
+            } else if (item.getItemId() == R.id.goals){
+                selectedFragment = new SavingsFragment();
             }
             if (selectedFragment != null) {
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();

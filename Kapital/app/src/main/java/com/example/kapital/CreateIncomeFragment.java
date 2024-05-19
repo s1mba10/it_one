@@ -21,90 +21,72 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Date;
 
-public class CreateOperationFragment extends Fragment {
-    private AppCompatButton createButton;
-    private EditText sumET;
-    private RadioGroup category, operationType;
-    private RadioButton food, fun, other, expense, income;
+public class CreateIncomeFragment extends Fragment {
+    AppCompatButton createButton;
+    EditText sumET;
+    RadioGroup category;
+    RadioButton salary, business, other;
     private FirebaseAuth mAuth;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.create_operation, container, false);
+        View view = inflater.inflate(R.layout.create_income, container, false);
 
         sumET = view.findViewById(R.id.sum);
         category = view.findViewById(R.id.category);
-        food = view.findViewById(R.id.food);
-        fun = view.findViewById(R.id.fun);
+        salary = view.findViewById(R.id.salary);
+        business = view.findViewById(R.id.business);
         other = view.findViewById(R.id.other);
-        createButton = view.findViewById(R.id.create_operation_button);
-
-        operationType = view.findViewById(R.id.operation_type);
-        expense = view.findViewById(R.id.expense);
-        income = view.findViewById(R.id.income);
+        createButton = view.findViewById(R.id.create_income_button);
 
         mAuth = FirebaseAuth.getInstance();
-
-        // Установка слушателя для изменения видимости категории
-        operationType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.income) {
-                    category.setVisibility(View.GONE);
-                } else {
-                    category.setVisibility(View.VISIBLE);
-                }
-            }
-        });
 
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createOperation();
+                createIncome();
             }
         });
 
         return view;
     }
 
-    private void createOperation() {
+    private void createIncome() {
         double sum = Double.parseDouble(sumET.getText().toString());
-        String category = null;
-
-        if (expense.isChecked()) {
-            if (food.isChecked()) {
-                category = "Еда";
-            } else if (fun.isChecked()) {
-                category = "Развлечения";
-            } else if (other.isChecked()) {
-                category = "Другое";
-            }
+        String category;
+        if (salary.isChecked()) {
+            category = "Зарплата";
+        } else if (business.isChecked()){
+            category = "Бизнес";
+        } else if (other.isChecked()){
+            category = "Другое";
+        } else{
+            return;
         }
 
-        String type = expense.isChecked() ? "expense" : "income";
         String userId = mAuth.getCurrentUser().getUid();
         Date date = new Date();
 
-        Map<String, Object> operation = new HashMap<>();
-        operation.put("sum", sum);
-        operation.put("category", category);
-        operation.put("userId", userId);
-        operation.put("date", date);
-        operation.put("type", type);
+        Map<String, Object> income = new HashMap<>();
+        income.put("sum", sum);
+        income.put("category", category);
+        income.put("userId", userId);
+        income.put("date", date);
+        income.put("type", "income");
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("operations")
-                .add(operation)
+                .add(income)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
-                        Toast.makeText(requireContext(), "Операция добавлена!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), "Доход добавлен!", Toast.LENGTH_SHORT).show();
                         sumET.setText("");
                     }
                 })
