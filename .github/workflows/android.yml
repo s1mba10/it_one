@@ -1,0 +1,100 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Kapital
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+        
+      - name: set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17.x'
+          
+      - name: Linting
+        run: ./gradlew lintDebug
+
+      - name: Upload html test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: lint.html
+          path: /home/runner/work/it_one/it_one/Kapital/app/build/reports/lint-results-debug.html
+
+  unit-test:
+    needs: [lint]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Kapital
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+        
+      - name: set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17.x'
+          
+      - name: Run tests
+        run: ./gradlew test
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: unit_test_report
+          path: /home/runner/work/it_one/it_one/Kapital/app/build/reports/tests/testDebugUnitTest/
+  
+  static-code-analysis:
+    needs: [unit-test]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Kapital
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17.x'
+
+      - name: SonarCloud Scan
+        run: ./gradlew app:sonarqube -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  package:
+    needs: [static-code-analysis]
+    name: Generate APK
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Kapital
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17.x'
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug 
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: expense-manager.apk
+          path: /home/runner/work/it_one/it_one/Kapital/app/build/outputs/apk/debug/app-debug.apk
