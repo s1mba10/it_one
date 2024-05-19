@@ -8,10 +8,10 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:text="Введите сумму для накопления:"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/white" />
 
     <EditText
         android:id="@+id/amount_edit_text"
@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Введите срок для накопления (в месяцах):"
+        android:text="Введите срок для накопления (в днях):"
         android:textSize="16sp"
         android:textColor="@color/white"
         android:layout_marginTop="16dp" />
@@ -32,23 +32,27 @@
         android:id="@+id/duration_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Срок (в месяцах)"
+        android:hint="Срок (в днях)"
         android:inputType="number" />
+
+
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/calculate_button"
         android:layout_width="match_parent"
-        android:background="@color/green"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:text="Рассчитать"
         android:textColor="@color/white"
+        android:background="@color/green"
         android:layout_marginTop="16dp" />
 
     <TextView
-        android:id="@+id/monthly_balance_text_view"
+        android:id="@+id/daily_balance_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:textColor="@color/white"
         android:layout_marginTop="16dp" />
 
     <ProgressBar
@@ -59,5 +63,4 @@
         android:layout_marginTop="16dp"
         android:max="100"
         android:progress="0" />
-
 </LinearLayout>

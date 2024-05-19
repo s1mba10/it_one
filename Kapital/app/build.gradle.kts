@@ -1,7 +1,11 @@
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
+    id("org.sonarqube") version "3.3"
+
 }
+
+
 
 android {
     namespace = "com.example.kapital"
@@ -44,4 +48,5 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation ("com.google.firebase:firebase-firestore:24.11.1")
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 }

@@ -1,5 +1,7 @@
 package com.example.kapital;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +43,10 @@ import java.util.Map;
 public class AnalyticsFragment extends Fragment {
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
+
+
+
+
 
     @Nullable
     @Override
@@ -131,7 +137,7 @@ public class AnalyticsFragment extends Fragment {
         PieData data = new PieData(dataSet);
         pieChart.setData(data);
         pieChart.animateY(1000);
-        dataSet.setColors(Color.rgb(255, 0, 0), Color.rgb(0, 255, 0), Color.rgb(0, 0, 255));
+        dataSet.setColors(Color.rgb(117, 10, 10), Color.rgb(26, 89, 32), Color.rgb(8, 24, 126));
         pieChart.invalidate();
     }
 
@@ -155,9 +161,10 @@ public class AnalyticsFragment extends Fragment {
         ArrayList<Integer> colors = new ArrayList<>();
         for (BarEntry entry : entries) {
             if (entry.getY() >= 0) {
-                colors.add(Color.GREEN); // Зеленый для положительной разницы
+                colors.add(Color.rgb(26, 89, 32));
+                 // Зеленый для положительной разницы
             } else {
-                colors.add(Color.RED); // Красный для отрицательной разницы
+                colors.add(Color.rgb(117, 10, 10));// Красный для отрицательной разницы
             }
         }
 
