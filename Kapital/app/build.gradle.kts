@@ -1,8 +1,8 @@
+apply plugin: "org.sonarqube"
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
     id("org.sonarqube") version "3.3"
-
 }
 
 
